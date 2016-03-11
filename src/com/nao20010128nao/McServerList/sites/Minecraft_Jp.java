@@ -1,7 +1,15 @@
 package com.nao20010128nao.McServerList.sites;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.nao20010128nao.McServerList.Server;
 
@@ -14,19 +22,83 @@ public class Minecraft_Jp implements ServerListSite {
 	@Override
 	public boolean matches(URL url) {
 		// TODO 自動生成されたメソッド・スタブ
-		return false;
+		return url.getHost().equalsIgnoreCase("minecraft.jp");
 	}
 
 	@Override
 	public boolean hasMultipleServers(URL url) {
 		// TODO 自動生成されたメソッド・スタブ
+		if (url.getPath().replace("/", "").equals("")
+				| url.getPath().replace("/", "").toLowerCase()
+						.startsWith("index")) {
+			return true;
+		}
+		if (url.getPath().replace("/", "").toLowerCase().startsWith("server")) {
+			return false;
+		}
 		return false;
 	}
 
 	@Override
-	public List<Server> getServers(URL url) {
+	public List<Server> getServers(URL url) throws IOException {
 		// TODO 自動生成されたメソッド・スタブ
+		if (url.getPath().replace("/", "").equals("")
+				| url.getPath().replace("/", "").toLowerCase()
+						.startsWith("serversscorepage")) {
+			List<Server> list = new ArrayList<>();
+			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla")
+					.get();
+			Elements elems = page
+					.select("html > body > #wrap > #content > table > tbody > tr > td.address");
+			for (Element e : elems) {
+				String ip = e.html();
+				if (ip.equals("(非公開)")) {
+					// Server is private
+					continue;
+				}
+				String[] spl = ip.split("\\:");
+				if (spl.length == 2) {
+					// IP & port
+					Server s = new Server();
+					s.ip = spl[0];
+					s.port = new Integer(spl[1]);
+					s.isPE = false;
+					list.add(s);
+				} else {
+					// IP only
+					Server s = new Server();
+					s.ip = spl[0];
+					s.port = 25565;
+					s.isPE = false;
+					list.add(s);
+				}
+			}
+			return list;
+		}
+		if (url.getPath().replace("/", "").toLowerCase().startsWith("servers")) {
+			// Single server page
+			String ip = url.getPath().substring(8);
+			if (!ip.contains(".")) {
+				// Server is private
+				return null;
+			}
+			String[] spl = ip.split("\\:");
+			if (spl.length == 2) {
+				// IP & port
+				Server s = new Server();
+				s.ip = spl[0];
+				s.port = new Integer(spl[1]);
+				s.isPE = false;
+				return Arrays.asList(s);
+			} else {
+				// IP only
+				Server s = new Server();
+				s.ip = spl[0];
+				s.port = 25565;
+				s.isPE = false;
+				return Arrays.asList(s);
+			}
+		}
 		return null;
 	}
-
 }
