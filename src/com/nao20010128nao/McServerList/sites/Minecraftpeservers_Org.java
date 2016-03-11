@@ -55,14 +55,14 @@ public class Minecraftpeservers_Org implements ServerListSite {
 				Server s = new Server();
 				s.ip = spl[0];
 				s.port = new Integer(spl[1]);
-				s.isPE = false;
+				s.isPE = true;
 				return Arrays.asList(s);
 			} else {
 				// IP only
 				Server s = new Server();
 				s.ip = spl[0];
 				s.port = 19132;
-				s.isPE = false;
+				s.isPE = true;
 				return Arrays.asList(s);
 			}
 		}
@@ -82,14 +82,14 @@ public class Minecraftpeservers_Org implements ServerListSite {
 					Server s = new Server();
 					s.ip = spl[0];
 					s.port = new Integer(spl[1]);
-					s.isPE = false;
+					s.isPE = true;
 					list.add(s);
 				} else {
 					// IP only
 					Server s = new Server();
 					s.ip = spl[0];
 					s.port = 19132;
-					s.isPE = false;
+					s.isPE = true;
 					list.add(s);
 				}
 			}

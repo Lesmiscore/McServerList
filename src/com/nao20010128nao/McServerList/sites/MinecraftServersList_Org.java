@@ -50,7 +50,7 @@ public class MinecraftServersList_Org implements ServerListSite {
 				// IP only
 				Server s = new Server();
 				s.ip = spl[0];
-				s.port = 19132;
+				s.port = 25565;
 				s.isPE = false;
 				return Arrays.asList(s);
 			}
