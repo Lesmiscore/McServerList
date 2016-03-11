@@ -10,9 +10,9 @@ import com.nao20010128nao.McServerList.Server;
  * */
 
 @Deprecated
-public class Pmmp_Jp implements ServerListSite {
+public class Pmmp_Jp_Net implements ServerListSite {
 
-	public Pmmp_Jp() {
+	public Pmmp_Jp_Net() {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
