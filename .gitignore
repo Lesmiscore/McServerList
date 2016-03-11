@@ -219,3 +219,6 @@ pip-log.txt
 *~
 *#
 /target/
+
+#Test World
+src/com/nao20010128nao/McServerList/TestWorld.java

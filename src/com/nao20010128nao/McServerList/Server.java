@@ -7,13 +7,19 @@ public final class Server {
 	/**
 	 * The address of the server
 	 * */
-	String ip;
+	public String ip;
 	/**
 	 * The port of the server
 	 * */
-	int port;
+	public int port;
 	/**
 	 * Used for check the server is for PE or not
 	 * */
-	boolean isPE;
+	public boolean isPE;
+
+	@Override
+	public String toString() {
+		// TODO 自動生成されたメソッド・スタブ
+		return ip + ":" + port;
+	}
 }
