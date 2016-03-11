@@ -77,7 +77,7 @@ public class Minecraft_Jp implements ServerListSite {
 		}
 		if (url.getPath().replace("/", "").toLowerCase().startsWith("servers")) {
 			// Single server page
-			String ip = url.getPath().substring(8);
+			String ip = url.getPath().substring(9);
 			if (!ip.contains(".")) {
 				// Server is private
 				return null;
