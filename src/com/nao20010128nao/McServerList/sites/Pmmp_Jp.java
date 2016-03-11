@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.nao20010128nao.McServerList.Server;
 
+/**
+ * Not implemented: server is not working now
+ * */
+
+@Deprecated
 public class Pmmp_Jp implements ServerListSite {
 
 	public Pmmp_Jp() {
