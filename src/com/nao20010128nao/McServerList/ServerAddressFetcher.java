@@ -38,7 +38,7 @@ public class ServerAddressFetcher {
 	 *
 	 * @param url
 	 *            An URL that is for server's detail or servers list
-	 * @return A list that was found servers contained. Immutable.
+	 * @return A list that was found servers contains. Immutable.
 	 * */
 	public static List<Server> findServersInWebpage(URL url) throws IOException {
 		ServerListSite service = null;
@@ -61,7 +61,7 @@ public class ServerAddressFetcher {
 
 	/**
 	 * Add a website for finding servers.
-	 * 
+	 *
 	 * @param service
 	 *            An instance of ServerListSite class.
 	 * */
