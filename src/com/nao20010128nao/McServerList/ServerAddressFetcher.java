@@ -34,6 +34,8 @@ public class ServerAddressFetcher {
 	/**
 	 * Finds Minecraft multiplayer IP & port from website.
 	 *
+	 * @param url
+	 *            An URL that is for server's detail or servers list
 	 * @return A list that was found servers contained. Immutable.
 	 * */
 	public static List<Server> findServersInWebpage(URL url) throws IOException {
