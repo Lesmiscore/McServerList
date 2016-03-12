@@ -17,6 +17,8 @@ import com.nao20010128nao.McServerList.Server;
  * Parser class for "minecraft.jp"
  * */
 public class Minecraft_Jp implements ServerListSite {
+	private static final List<String> PATH_BLACK_LIST = Arrays.asList("score",
+			"vote", "player", "uptime", "ping", "recent", "random", "comment");
 
 	public Minecraft_Jp() {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -31,13 +33,13 @@ public class Minecraft_Jp implements ServerListSite {
 	@Override
 	public boolean hasMultipleServers(URL url) {
 		// TODO 自動生成されたメソッド・スタブ
-		if (url.getPath().replace("/", "").equals("")
-				| url.getPath().replace("/", "").toLowerCase()
-						.startsWith("index")) {
-			return true;
-		}
-		if (url.getPath().replace("/", "").toLowerCase().startsWith("server")) {
+		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
 			return false;
+		}
+		if (isPathStartsFromServers(url)
+				| url.getPath().replace("/", "").equals("")
+				| !isSingleServer(url.getPath())) {
+			return true;
 		}
 		return false;
 	}
@@ -45,9 +47,18 @@ public class Minecraft_Jp implements ServerListSite {
 	@Override
 	public List<Server> getServers(URL url) throws IOException {
 		// TODO 自動生成されたメソッド・スタブ
-		if (url.getPath().replace("/", "").equals("")
-				| url.getPath().replace("/", "").toLowerCase()
-						.startsWith("serversscorepage")) {
+		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
+			// Single server page
+			String ip = url.getPath().substring(9);
+			if (!ip.contains(".")) {
+				// Server is private
+				return null;
+			}
+			return Arrays.asList(Server.makeServerFromString(ip, false));
+		}
+		if (isPathStartsFromServers(url)
+				| url.getPath().replace("/", "").equals("")
+				| !isSingleServer(url.getPath())) {
 			List<Server> list = new ArrayList<>();
 			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla")
 					.get();
@@ -63,15 +74,27 @@ public class Minecraft_Jp implements ServerListSite {
 			}
 			return list;
 		}
-		if (url.getPath().replace("/", "").toLowerCase().startsWith("servers")) {
-			// Single server page
-			String ip = url.getPath().substring(9);
-			if (!ip.contains(".")) {
-				// Server is private
-				return null;
-			}
-			return Arrays.asList(Server.makeServerFromString(ip, false));
-		}
 		return null;
+	}
+
+	private boolean isPathStartsFromServers(URL url) {
+		return url.getPath().replace("/", "").toLowerCase()
+				.startsWith("servers");
+	}
+
+	private boolean isSingleServer(String path) {
+		String[] s = path.toLowerCase().split("\\/");
+		if (s.length <= 1) {
+			return false;
+		}
+		// System.err.println(s[2]);
+		String act = s[2].split("\\:")[0];
+		if (PATH_BLACK_LIST.contains(act)) {
+			return false;
+		}
+		if (act.contains(".")) {
+			return true;
+		}
+		return false;
 	}
 }
