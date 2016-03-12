@@ -22,4 +22,22 @@ public final class Server {
 		// TODO 自動生成されたメソッド・スタブ
 		return ip + ":" + port;
 	}
+
+	/**
+	 * Generates a Server instance from a String.
+	 * */
+	public static Server makeServerFromString(String ip, boolean isPE) {
+		String[] spl = ip.split("\\:");
+		Server s = new Server();
+		s.ip = spl[0];
+		if (spl.length == 2) {
+			// IP & port
+			s.port = new Integer(spl[1]);
+		} else {
+			// IP only
+			s.port = isPE ? 19132 : 25565;
+		}
+		s.isPE = isPE;
+		return s;
+	}
 }

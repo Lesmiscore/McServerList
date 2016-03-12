@@ -7,7 +7,7 @@ import com.nao20010128nao.McServerList.Server;
 
 /**
  * Parser class for "pmmp.jp.net".<br>
- * Not implemented: server is not working now
+ * Not implemented: website is not working now
  * */
 
 @Deprecated

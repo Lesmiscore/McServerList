@@ -59,22 +59,7 @@ public class Minecraft_Jp implements ServerListSite {
 					// Server is private
 					continue;
 				}
-				String[] spl = ip.split("\\:");
-				if (spl.length == 2) {
-					// IP & port
-					Server s = new Server();
-					s.ip = spl[0];
-					s.port = new Integer(spl[1]);
-					s.isPE = false;
-					list.add(s);
-				} else {
-					// IP only
-					Server s = new Server();
-					s.ip = spl[0];
-					s.port = 25565;
-					s.isPE = false;
-					list.add(s);
-				}
+				list.add(Server.makeServerFromString(ip, false));
 			}
 			return list;
 		}
@@ -85,22 +70,7 @@ public class Minecraft_Jp implements ServerListSite {
 				// Server is private
 				return null;
 			}
-			String[] spl = ip.split("\\:");
-			if (spl.length == 2) {
-				// IP & port
-				Server s = new Server();
-				s.ip = spl[0];
-				s.port = new Integer(spl[1]);
-				s.isPE = false;
-				return Arrays.asList(s);
-			} else {
-				// IP only
-				Server s = new Server();
-				s.ip = spl[0];
-				s.port = 25565;
-				s.isPE = false;
-				return Arrays.asList(s);
-			}
+			return Arrays.asList(Server.makeServerFromString(ip, false));
 		}
 		return null;
 	}

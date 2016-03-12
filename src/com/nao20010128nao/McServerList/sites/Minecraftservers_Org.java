@@ -52,22 +52,7 @@ public class Minecraftservers_Org implements ServerListSite {
 			String ip = page
 					.select("html > body > #single > div > #left > table > tbody > tr > td > span")
 					.get(2).html();
-			String[] spl = ip.split("\\:");
-			if (spl.length == 2) {
-				// IP & port
-				Server s = new Server();
-				s.ip = spl[0];
-				s.port = new Integer(spl[1]);
-				s.isPE = false;
-				return Arrays.asList(s);
-			} else {
-				// IP only
-				Server s = new Server();
-				s.ip = spl[0];
-				s.port = 25565;
-				s.isPE = false;
-				return Arrays.asList(s);
-			}
+			return Arrays.asList(Server.makeServerFromString(ip, false));
 		}
 		if (url.getPath().replace("/", "").equals("")
 				| url.getPath().replace("/", "").toLowerCase()
@@ -79,22 +64,7 @@ public class Minecraftservers_Org implements ServerListSite {
 					.select("html > body > #main > div > table > tbody > tr > td > div > p");
 			for (Element e : elems) {
 				String ip = e.html().substring(29);
-				String[] spl = ip.split("\\:");
-				if (spl.length == 2) {
-					// IP & port
-					Server s = new Server();
-					s.ip = spl[0];
-					s.port = new Integer(spl[1]);
-					s.isPE = false;
-					list.add(s);
-				} else {
-					// IP only
-					Server s = new Server();
-					s.ip = spl[0];
-					s.port = 25565;
-					s.isPE = false;
-					list.add(s);
-				}
+				list.add(Server.makeServerFromString(ip, false));
 			}
 			return list;
 		}

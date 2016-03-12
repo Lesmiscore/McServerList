@@ -41,22 +41,7 @@ public class MinecraftServersList_Org implements ServerListSite {
 			String ip = page
 					.select("html > body > div > div > section > div > div > div > div > div.content.col-md-8 > div.box > div.center > h5.text-muted > span.color")
 					.get(0).html();
-			String[] spl = ip.split("\\:");
-			if (spl.length == 2) {
-				// IP & port
-				Server s = new Server();
-				s.ip = spl[0];
-				s.port = new Integer(spl[1]);
-				s.isPE = false;
-				return Arrays.asList(s);
-			} else {
-				// IP only
-				Server s = new Server();
-				s.ip = spl[0];
-				s.port = 25565;
-				s.isPE = false;
-				return Arrays.asList(s);
-			}
+			return Arrays.asList(Server.makeServerFromString(ip, false));
 		}
 		return null;
 	}
