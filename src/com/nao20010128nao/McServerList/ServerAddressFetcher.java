@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.nao20010128nao.McServerList.sites.MinecraftServersList_Org;
 import com.nao20010128nao.McServerList.sites.Minecraft_Jp;
@@ -17,7 +19,7 @@ import com.nao20010128nao.McServerList.sites.ServerListSite;
  * Finds Minecraft multiplayer IP & port from website. Cannot be instantinated.
  * */
 public class ServerAddressFetcher {
-	static List<ServerListSite> services = new ArrayList<>();
+	static Set<ServerListSite> services = new HashSet<>();
 	static {
 		services.add(new Minecraft_Jp());
 		services.add(new Minecraftpeservers_Org());
@@ -55,5 +57,15 @@ public class ServerAddressFetcher {
 			throw new IllegalArgumentException("Unsupported webpage: " + url);
 		}
 		return Collections.unmodifiableList(new ArrayList<>(servers));
+	}
+
+	/**
+	 * Add a website for finding servers.
+	 * 
+	 * @param service
+	 *            An instance of ServerListSite class.
+	 * */
+	public static void addService(ServerListSite service) {
+		services.add(service);
 	}
 }
