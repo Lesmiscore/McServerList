@@ -13,6 +13,9 @@ import org.jsoup.select.Elements;
 
 import com.nao20010128nao.McServerList.Server;
 
+/**
+ * Parser class for "minecraftservers.org"
+ * */
 public class Minecraftservers_Org implements ServerListSite {
 
 	public Minecraftservers_Org() {

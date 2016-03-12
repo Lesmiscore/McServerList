@@ -13,6 +13,9 @@ import org.jsoup.select.Elements;
 
 import com.nao20010128nao.McServerList.Server;
 
+/**
+ * Parser class for "pe.minecraft.jp"
+ * */
 public class Pe_Minecraft_Jp implements ServerListSite {
 
 	public Pe_Minecraft_Jp() {
