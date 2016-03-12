@@ -59,7 +59,7 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 					// Server is private
 					continue;
 				}
-				list.add(Server.makeServerFromString(ip, false));
+				list.add(Server.makeServerFromString(ip, true));
 			}
 			return list;
 		}
@@ -70,7 +70,7 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 				// Server is private
 				return null;
 			}
-			return Arrays.asList(Server.makeServerFromString(ip, false));
+			return Arrays.asList(Server.makeServerFromString(ip, true));
 		}
 		return null;
 	}

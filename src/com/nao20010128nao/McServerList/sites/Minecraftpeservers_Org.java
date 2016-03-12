@@ -52,7 +52,7 @@ public class Minecraftpeservers_Org implements ServerListSite {
 			String ip = page
 					.select("html > body > #single > div > #left > table > tbody > tr > td > span")
 					.get(2).html();
-			return Arrays.asList(Server.makeServerFromString(ip, false));
+			return Arrays.asList(Server.makeServerFromString(ip, true));
 		}
 		if (url.getPath().replace("/", "").equals("")
 				| url.getPath().replace("/", "").toLowerCase()
@@ -64,7 +64,7 @@ public class Minecraftpeservers_Org implements ServerListSite {
 					.select("html > body > #main > div > table > tbody > tr > td > div > p");
 			for (Element e : elems) {
 				String ip = e.html().substring(29);
-				list.add(Server.makeServerFromString(ip, false));
+				list.add(Server.makeServerFromString(ip, true));
 			}
 			return list;
 		}
