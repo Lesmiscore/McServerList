@@ -34,7 +34,7 @@ public class ServerAddressFetcher {
 	}
 
 	/**
-	 * Finds Minecraft multiplayer IP & port from website.
+	 * Finds Minecraft multiplayer IP & port from a website.
 	 *
 	 * @param url
 	 *            An URL that is for server's detail or servers list
