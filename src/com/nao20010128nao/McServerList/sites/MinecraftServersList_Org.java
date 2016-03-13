@@ -22,7 +22,8 @@ public class MinecraftServersList_Org implements ServerListSite {
 	@Override
 	public boolean matches(URL url) {
 		// TODO 自動生成されたメソッド・スタブ
-		return url.getHost().equalsIgnoreCase("www.minecraft-servers-list.org");
+		return url.getHost().equalsIgnoreCase("www.minecraft-servers-list.org")
+				| url.getHost().equalsIgnoreCase("minecraft-servers-list.org");
 	}
 
 	@Override
