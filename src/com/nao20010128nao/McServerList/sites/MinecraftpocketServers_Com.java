@@ -52,7 +52,7 @@ public class MinecraftpocketServers_Com implements ServerListSite {
 			Elements elems = page
 					.select("html > body > div > div > div > div > table > tbody > tr > td > strong");
 			return Arrays.asList(Server.makeServerFromString(elems.get(1)
-					.html(), false));
+					.html(), true));
 		}
 		if (isPathStartsFromServers(url)
 				| url.getPath().replace("/", "").equals("")
@@ -67,7 +67,7 @@ public class MinecraftpocketServers_Com implements ServerListSite {
 				if (ip.startsWith("#")) {
 					continue;
 				}
-				list.add(Server.makeServerFromString(ip, false));
+				list.add(Server.makeServerFromString(ip, true));
 			}
 			return list;
 		}
