@@ -8,9 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.nao20010128nao.McServerList.sites.MinecraftMp_Com;
 import com.nao20010128nao.McServerList.sites.MinecraftServersList_Org;
 import com.nao20010128nao.McServerList.sites.Minecraft_Jp;
 import com.nao20010128nao.McServerList.sites.Minecraftpeservers_Org;
+import com.nao20010128nao.McServerList.sites.MinecraftpocketServers_Com;
 import com.nao20010128nao.McServerList.sites.Minecraftservers_Org;
 import com.nao20010128nao.McServerList.sites.Pe_Minecraft_Jp;
 import com.nao20010128nao.McServerList.sites.ServerListSite;
@@ -26,6 +28,8 @@ public class ServerAddressFetcher {
 		services.add(new Minecraftservers_Org());
 		services.add(new MinecraftServersList_Org());
 		services.add(new Pe_Minecraft_Jp());
+		services.add(new MinecraftpocketServers_Com());
+		services.add(new MinecraftMp_Com());
 		// services.add(new Pmmp_Jp_Net());//Unavaliable
 	}
 
