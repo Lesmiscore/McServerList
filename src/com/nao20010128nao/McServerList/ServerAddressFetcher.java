@@ -15,6 +15,7 @@ import com.nao20010128nao.McServerList.sites.Minecraftpeservers_Org;
 import com.nao20010128nao.McServerList.sites.MinecraftpocketServers_Com;
 import com.nao20010128nao.McServerList.sites.Minecraftservers_Org;
 import com.nao20010128nao.McServerList.sites.Pe_Minecraft_Jp;
+import com.nao20010128nao.McServerList.sites.Pmmp_Jp_Net;
 import com.nao20010128nao.McServerList.sites.ServerListSite;
 
 /**
@@ -30,7 +31,7 @@ public class ServerAddressFetcher {
 		services.add(new Pe_Minecraft_Jp());
 		services.add(new MinecraftpocketServers_Com());
 		services.add(new MinecraftMp_Com());
-		// services.add(new Pmmp_Jp_Net());//Unavaliable
+		services.add(new Pmmp_Jp_Net());
 	}
 
 	private ServerAddressFetcher() {
