@@ -20,7 +20,7 @@ import com.nao20010128nao.McServerList.sites.ServerListSite;
 
 /**
  * Finds Minecraft multiplayer IP & port from website. Cannot be instantinated.
- * */
+ */
 public class ServerAddressFetcher {
 	static Set<ServerListSite> services = new HashSet<>();
 	static {
@@ -44,24 +44,23 @@ public class ServerAddressFetcher {
 	 * @param url
 	 *            An URL that is for server's detail or servers list
 	 * @return A list that was found servers contains. Immutable.
-	 * */
+	 */
 	public static List<Server> findServersInWebpage(URL url) throws IOException {
-		ServerListSite service = null;
+		Set<ServerListSite> service = new HashSet<>();
 		for (ServerListSite serv : services) {
 			if (serv.matches(url)) {
-				service = serv;
+				service.add(serv);
 				break;
 			}
 		}
-		if (service == null) {
-			throw new IllegalArgumentException(
-					"This website is not supported: " + url);
+		if (service.size() == 0) {
+			throw new IllegalArgumentException("This website is not supported: " + url);
 		}
-		List<Server> servers = service.getServers(url);
-		if (servers == null) {
-			throw new IllegalArgumentException("Unsupported webpage: " + url);
+		for (ServerListSite serv : services) {
+			List<Server> servers = serv.getServers(url);
+			return Collections.unmodifiableList(new ArrayList<>(servers));
 		}
-		return Collections.unmodifiableList(new ArrayList<>(servers));
+		throw new IllegalArgumentException("Unsupported webpage: " + url);
 	}
 
 	/**
@@ -69,7 +68,7 @@ public class ServerAddressFetcher {
 	 *
 	 * @param service
 	 *            An instance of ServerListSite class.
-	 * */
+	 */
 	public static void addService(ServerListSite service) {
 		services.add(service);
 	}
