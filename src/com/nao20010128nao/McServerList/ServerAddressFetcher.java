@@ -56,10 +56,14 @@ public class ServerAddressFetcher {
 			throw new IllegalArgumentException("This website is not supported: " + url);
 		}
 		for (ServerListSite serv : service) {
-			List<Server> servers = serv.getServers(url);
-			if (servers == null)
-				continue;
-			return Collections.unmodifiableList(new ArrayList<>(servers));
+			try {
+				List<Server> servers = serv.getServers(url);
+				if (servers == null)
+					continue;
+				return Collections.unmodifiableList(new ArrayList<>(servers));
+			} catch (Throwable e) {
+				// ignore
+			}
 		}
 		throw new IllegalArgumentException("Unsupported webpage: " + url);
 	}
