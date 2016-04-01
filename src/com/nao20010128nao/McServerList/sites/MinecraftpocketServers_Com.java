@@ -15,7 +15,7 @@ import com.nao20010128nao.McServerList.Server;
 
 /**
  * Parser class for "minecraftpocket-servers.com"
- * */
+ */
 public class MinecraftpocketServers_Com implements ServerListSite {
 
 	public MinecraftpocketServers_Com() {
@@ -34,9 +34,7 @@ public class MinecraftpocketServers_Com implements ServerListSite {
 		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
 			return false;
 		}
-		if (isPathStartsFromServers(url)
-				| url.getPath().replace("/", "").equals("")
-				| !isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("") | !isSingleServer(url.getPath())) {
 			return true;
 		}
 		return false;
@@ -47,21 +45,14 @@ public class MinecraftpocketServers_Com implements ServerListSite {
 		// TODO 自動生成されたメソッド・スタブ
 		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
 			// Single server page
-			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla")
-					.get();
-			Elements elems = page
-					.select("html > body > div > div > div > div > table > tbody > tr > td > strong");
-			return Arrays.asList(Server.makeServerFromString(elems.get(1)
-					.html(), true));
+			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla").get();
+			Elements elems = page.select("html > body > div > div > div > div > table > tbody > tr > td > strong");
+			return Arrays.asList(Server.makeServerFromString(elems.get(1).html(), true));
 		}
-		if (isPathStartsFromServers(url)
-				| url.getPath().replace("/", "").equals("")
-				| !isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("") | !isSingleServer(url.getPath())) {
 			List<Server> list = new ArrayList<>();
-			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla")
-					.get();
-			Elements elems = page
-					.select("html > body > div > div > table > tbody > tr > td > strong");
+			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla").get();
+			Elements elems = page.select("html > body > div > div > table > tbody > tr > td > strong");
 			for (Element e : elems) {
 				String ip = e.html();
 				if (ip.startsWith("#")) {
@@ -75,8 +66,7 @@ public class MinecraftpocketServers_Com implements ServerListSite {
 	}
 
 	private boolean isPathStartsFromServers(URL url) {
-		return url.getPath().replace("/", "").toLowerCase()
-				.startsWith("servers");
+		return url.getPath().replace("/", "").toLowerCase().startsWith("servers");
 	}
 
 	private boolean isSingleServer(String path) {

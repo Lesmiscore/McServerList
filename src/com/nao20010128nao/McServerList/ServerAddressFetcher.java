@@ -50,13 +50,12 @@ public class ServerAddressFetcher {
 		for (ServerListSite serv : services) {
 			if (serv.matches(url)) {
 				service.add(serv);
-				break;
 			}
 		}
 		if (service.size() == 0) {
 			throw new IllegalArgumentException("This website is not supported: " + url);
 		}
-		for (ServerListSite serv : services) {
+		for (ServerListSite serv : service) {
 			List<Server> servers = serv.getServers(url);
 			return Collections.unmodifiableList(new ArrayList<>(servers));
 		}
