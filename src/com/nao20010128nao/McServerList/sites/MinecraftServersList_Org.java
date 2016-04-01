@@ -12,7 +12,7 @@ import com.nao20010128nao.McServerList.Server;
 
 /**
  * Parser class for "minecraft-servers-list.org"
- * */
+ */
 public class MinecraftServersList_Org implements ServerListSite {
 
 	public MinecraftServersList_Org() {
@@ -37,8 +37,7 @@ public class MinecraftServersList_Org implements ServerListSite {
 		// TODO 自動生成されたメソッド・スタブ
 		if (url.getPath().replace("/", "").toLowerCase().startsWith("details")) {
 			// Single server page
-			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla")
-					.get();
+			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla").get();
 			String ip = page
 					.select("html > body > div > div > section > div > div > div > div > div.content.col-md-8 > div.box > div.center > h5.text-muted > span.color")
 					.get(0).html();

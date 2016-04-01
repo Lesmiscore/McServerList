@@ -15,10 +15,10 @@ import com.nao20010128nao.McServerList.Server;
 
 /**
  * Parser class for "pe.minecraft.jp"
- * */
+ */
 public class Pe_Minecraft_Jp implements ServerListSite {
-	private static final List<String> PATH_BLACK_LIST = Arrays.asList("score",
-			"vote", "player", "uptime", "ping", "recent", "random", "comment");
+	private static final List<String> PATH_BLACK_LIST = Arrays.asList("score", "vote", "player", "uptime", "ping",
+			"recent", "random", "comment");
 
 	public Pe_Minecraft_Jp() {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -36,9 +36,7 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
 			return false;
 		}
-		if (isPathStartsFromServers(url)
-				| url.getPath().replace("/", "").equals("")
-				| !isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("") | !isSingleServer(url.getPath())) {
 			return true;
 		}
 		return false;
@@ -56,14 +54,10 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 			}
 			return Arrays.asList(Server.makeServerFromString(ip, true));
 		}
-		if (isPathStartsFromServers(url)
-				| url.getPath().replace("/", "").equals("")
-				| !isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("") | !isSingleServer(url.getPath())) {
 			List<Server> list = new ArrayList<>();
-			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla")
-					.get();
-			Elements elems = page
-					.select("html > body > #wrap > #content > table > tbody > tr > td.address");
+			Document page = Jsoup.connect(url.toString()).userAgent("Mozilla").get();
+			Elements elems = page.select("html > body > #wrap > #content > table > tbody > tr > td.address");
 			for (Element e : elems) {
 				String ip = e.html();
 				if (ip.equals("(非公開)")) {
@@ -78,8 +72,7 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 	}
 
 	private boolean isPathStartsFromServers(URL url) {
-		return url.getPath().replace("/", "").toLowerCase()
-				.startsWith("servers");
+		return url.getPath().replace("/", "").toLowerCase().startsWith("servers");
 	}
 
 	private boolean isSingleServer(String path) {
