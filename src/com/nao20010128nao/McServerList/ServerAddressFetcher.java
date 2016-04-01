@@ -57,6 +57,8 @@ public class ServerAddressFetcher {
 		}
 		for (ServerListSite serv : service) {
 			List<Server> servers = serv.getServers(url);
+			if (servers == null)
+				continue;
 			return Collections.unmodifiableList(new ArrayList<>(servers));
 		}
 		throw new IllegalArgumentException("Unsupported webpage: " + url);
