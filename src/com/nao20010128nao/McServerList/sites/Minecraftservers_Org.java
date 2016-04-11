@@ -32,12 +32,10 @@ public class Minecraftservers_Org implements ServerListSite {
 	public boolean hasMultipleServers(URL url) {
 		// TODO 自動生成されたメソッド・スタブ
 		if (url.getPath().replace("/", "").equals("")
-				| url.getPath().replace("/", "").toLowerCase().startsWith("index")) {
+				| url.getPath().replace("/", "").toLowerCase().startsWith("index"))
 			return true;
-		}
-		if (url.getPath().replace("/", "").toLowerCase().startsWith("server")) {
+		if (url.getPath().replace("/", "").toLowerCase().startsWith("server"))
 			return false;
-		}
 		return false;
 	}
 

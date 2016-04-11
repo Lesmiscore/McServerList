@@ -47,15 +47,12 @@ public class ServerAddressFetcher {
 	 */
 	public static List<Server> findServersInWebpage(URL url) throws IOException {
 		Set<ServerListSite> service = new HashSet<>();
-		for (ServerListSite serv : services) {
-			if (serv.matches(url)) {
+		for (ServerListSite serv : services)
+			if (serv.matches(url))
 				service.add(serv);
-			}
-		}
-		if (service.size() == 0) {
+		if (service.size() == 0)
 			throw new IllegalArgumentException("This website is not supported: " + url);
-		}
-		for (ServerListSite serv : service) {
+		for (ServerListSite serv : service)
 			try {
 				List<Server> servers = serv.getServers(url);
 				if (servers == null)
@@ -64,7 +61,6 @@ public class ServerAddressFetcher {
 			} catch (Throwable e) {
 				// ignore
 			}
-		}
 		throw new IllegalArgumentException("Unsupported webpage: " + url);
 	}
 

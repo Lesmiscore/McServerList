@@ -31,12 +31,11 @@ public class MinecraftMp_Com implements ServerListSite {
 	@Override
 	public boolean hasMultipleServers(URL url) throws IOException {
 		// TODO 自動生成されたメソッド・スタブ
-		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) & isSingleServer(url.getPath()))
 			return false;
-		}
-		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("") | !isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("")
+				| !isSingleServer(url.getPath()))
 			return true;
-		}
 		return false;
 	}
 
@@ -55,9 +54,8 @@ public class MinecraftMp_Com implements ServerListSite {
 			Elements elems = page.select("html > body > div > div > table > tbody > tr > td > strong");
 			for (Element e : elems) {
 				String ip = e.html();
-				if (ip.startsWith("#")) {
+				if (ip.startsWith("#"))
 					continue;
-				}
 				list.add(Server.makeServerFromString(ip, false));
 			}
 			return list;
@@ -71,14 +69,12 @@ public class MinecraftMp_Com implements ServerListSite {
 
 	private boolean isSingleServer(String path) {
 		String[] s = path.toLowerCase().split("\\/");
-		if (s.length <= 1) {
+		if (s.length <= 1)
 			return false;
-		}
 		// System.err.println(s[1]);
 		String act = s[1];
-		if (act.startsWith("server-s")) {
+		if (act.startsWith("server-s"))
 			return true;
-		}
 		return false;
 	}
 }

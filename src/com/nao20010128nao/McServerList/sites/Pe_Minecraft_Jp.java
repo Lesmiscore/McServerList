@@ -33,12 +33,11 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 	@Override
 	public boolean hasMultipleServers(URL url) {
 		// TODO 自動生成されたメソッド・スタブ
-		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) & isSingleServer(url.getPath()))
 			return false;
-		}
-		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("") | !isSingleServer(url.getPath())) {
+		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("")
+				| !isSingleServer(url.getPath()))
 			return true;
-		}
 		return false;
 	}
 
@@ -48,10 +47,9 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 		if (isPathStartsFromServers(url) & isSingleServer(url.getPath())) {
 			// Single server page
 			String ip = url.getPath().substring(9);
-			if (!ip.contains(".")) {
+			if (!ip.contains("."))
 				// Server is private
 				return null;
-			}
 			return Arrays.asList(Server.makeServerFromString(ip, true));
 		}
 		if (isPathStartsFromServers(url) | url.getPath().replace("/", "").equals("") | !isSingleServer(url.getPath())) {
@@ -60,10 +58,9 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 			Elements elems = page.select("html > body > #wrap > #content > table > tbody > tr > td.address");
 			for (Element e : elems) {
 				String ip = e.html();
-				if (ip.equals("(非公開)")) {
+				if (ip.equals("(非公開)"))
 					// Server is private
 					continue;
-				}
 				list.add(Server.makeServerFromString(ip, true));
 			}
 			return list;
@@ -77,17 +74,14 @@ public class Pe_Minecraft_Jp implements ServerListSite {
 
 	private boolean isSingleServer(String path) {
 		String[] s = path.toLowerCase().split("\\/");
-		if (s.length <= 1) {
+		if (s.length <= 1)
 			return false;
-		}
 		// System.err.println(s[2]);
 		String act = s[2].split("\\:")[0];
-		if (PATH_BLACK_LIST.contains(act)) {
+		if (PATH_BLACK_LIST.contains(act))
 			return false;
-		}
-		if (act.contains(".")) {
+		if (act.contains("."))
 			return true;
-		}
 		return false;
 	}
 }

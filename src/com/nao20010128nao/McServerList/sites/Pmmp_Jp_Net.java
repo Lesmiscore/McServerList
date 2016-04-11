@@ -50,12 +50,10 @@ public class Pmmp_Jp_Net implements ServerListSite {
 				PMMP_Servers_List.class);
 		List<Server> result = new ArrayList<>();
 		for (PMMP_Servers_List.ServerEntry se : sl.servers) {
-			if (se.ip == null) {
+			if (se.ip == null)
 				continue;
-			}
-			if (!se.ip.contains(".")) {
+			if (!se.ip.contains("."))
 				continue;
-			}
 			Server s = new Server();
 			s.ip = se.ip;
 			s.port = new Integer(se.port);
