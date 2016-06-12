@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.nao20010128nao.McServerList.Server;
  */
 
 public class Pmmp_Jp_Net implements ServerListSite {
+	private static final String BASE64CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 	public Pmmp_Jp_Net() {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -25,7 +27,7 @@ public class Pmmp_Jp_Net implements ServerListSite {
 	@Override
 	public boolean matches(URL url) {
 		// TODO 自動生成されたメソッド・スタブ
-		return url.getHost().equalsIgnoreCase("pmmp.jp.net");
+		return url.getHost().equalsIgnoreCase("pmmp.jp.net") | url.getHost().equalsIgnoreCase("mc-pe.online");
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class Pmmp_Jp_Net implements ServerListSite {
 		con.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 		con.setRequestProperty("User-Agent", "Apache-HttpClient/UNAVAILABLE (java 1.4)");
 		Writer w = new OutputStreamWriter(con.getOutputStream());
-		w.write("userID=100006289&app=2");
+		w.write("id=" + generateId() + "&notify=" + generateNotify() + "&app=2");
 		w.flush();
 		PMMP_Servers_List sl = new Gson().fromJson(new InputStreamReader(con.getInputStream(), "UTF-8"),
 				PMMP_Servers_List.class);
@@ -61,6 +63,22 @@ public class Pmmp_Jp_Net implements ServerListSite {
 			result.add(s);
 		}
 		return result;
+	}
+
+	private String generateId() {
+		SecureRandom sr = new SecureRandom();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < 16; i++)
+			sb.append(BASE64CHARS.charAt(Math.abs(sr.nextInt()) % 64));
+		return sb.toString();
+	}
+
+	private String generateNotify() {
+		SecureRandom sr = new SecureRandom();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < 140; i++)
+			sb.append(BASE64CHARS.charAt(Math.abs(sr.nextInt()) % 64));
+		return sb.toString();
 	}
 
 	public class PMMP_Servers_List {
