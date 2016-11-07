@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.nao20010128nao.McServerList.sites.MinecraftMp_Com;
-import com.nao20010128nao.McServerList.sites.MinecraftServersList_Org;
 import com.nao20010128nao.McServerList.sites.Minecraft_Jp;
 import com.nao20010128nao.McServerList.sites.Minecraftpeservers_Org;
 import com.nao20010128nao.McServerList.sites.MinecraftpocketServers_Com;
@@ -27,7 +26,7 @@ public class ServerAddressFetcher {
 		services.add(new Minecraft_Jp());
 		services.add(new Minecraftpeservers_Org());
 		services.add(new Minecraftservers_Org());
-		services.add(new MinecraftServersList_Org());
+		// services.add(new MinecraftServersList_Org());//Is this website dead?
 		services.add(new Pe_Minecraft_Jp());
 		services.add(new MinecraftpocketServers_Com());
 		services.add(new MinecraftMp_Com());
@@ -52,6 +51,7 @@ public class ServerAddressFetcher {
 				service.add(serv);
 		if (service.size() == 0)
 			throw new IllegalArgumentException("This website is not supported: " + url);
+		List<Throwable> errors = new ArrayList<>();
 		for (ServerListSite serv : service)
 			try {
 				List<Server> servers = serv.getServers(url);
@@ -59,9 +59,15 @@ public class ServerAddressFetcher {
 					continue;
 				return Collections.unmodifiableList(new ArrayList<>(servers));
 			} catch (Throwable e) {
-				// ignore
+				errors.add(e);
 			}
-		throw new IllegalArgumentException("Unsupported webpage: " + url);
+		int errSize = errors.size();
+		Throwable first = errors.get(0);
+		for (int i = 0; i < errSize - 1; i++) {
+			errors.get(0).addSuppressed(errors.get(1));
+			errors.remove(0);
+		}
+		throw new IllegalArgumentException("Unsupported webpage: " + url, first);
 	}
 
 	/**
