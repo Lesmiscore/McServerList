@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.nao20010128nao.McServerList.Server;
 
 /**
@@ -82,30 +83,75 @@ public class Pmmp_Jp_Net implements ServerListSite {
 	}
 
 	public class PMMP_Servers_List {
+		@SerializedName("status")
 		public int status;
+		@SerializedName("userID")
 		public String userID;
+		@SerializedName("servers")
 		public ServerEntry[] servers;
 
 		public class ServerEntry {
-			public int ver, notify, no, status, playerMax, playerNow;
+			@SerializedName("ver")
+			public int ver;
+			@SerializedName("notify")
+			public int notify;
+			@SerializedName("no")
+			public int no;
+			@SerializedName("status")
+			public int status;
+			@SerializedName("playerMax")
+			public int playerMax;
+			@SerializedName("playerNow")
+			public int playerNow;
+			@SerializedName("_order")
 			public long _order;
-			public String name, description, ip, port, icon, topImg, owner;
+			@SerializedName("name")
+			public String name;
+			@SerializedName("description")
+			public String description;
+			@SerializedName("ip")
+			public String ip;
+			@SerializedName("port")
+			public String port;
+			@SerializedName("icon")
+			public String icon;
+			@SerializedName("topImg")
+			public String topImg;
+			@SerializedName("owner")
+			public String owner;
+			@SerializedName("sites")
 			public SitesEntry[] sites;
+			@SerializedName("categories")
 			public CategoriesEntry[] categories;
 
 			public class SitesEntry {
-				public String title, url;
+				@SerializedName("title")
+				public String title;
+				@SerializedName("url")
+				public String url;
+				@SerializedName("icon")
 				public int icon;
+				@SerializedName("schemes")
 				public SchememesEntry[] schemes;
 
 				public class SchememesEntry {
-					public String title, icon, scheme;
+					@SerializedName("title")
+					public String title;
+					@SerializedName("icon")
+					public String icon;
+					@SerializedName("scheme")
+					public String scheme;
+					@SerializedName("allowAndroid")
 					public boolean allowAndroid;
 				}
 			}
 
 			public class CategoriesEntry {
-				public int color, mark;
+				@SerializedName("color")
+				public int color;
+				@SerializedName("mark")
+				public int mark;
+				@SerializedName("text")
 				public String text;
 			}
 		}
