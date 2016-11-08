@@ -52,7 +52,7 @@ public class Pmmp_Jp_Net implements ServerListSite {
 		PMMP_Servers_List sl = new Gson().fromJson(new InputStreamReader(con.getInputStream(), "UTF-8"),
 				PMMP_Servers_List.class);
 		List<Server> result = new ArrayList<>();
-		for (PMMP_Servers_List.ServerEntry se : sl.servers) {
+		for (ServerEntry se : sl.servers) {
 			if (se.ip == null)
 				continue;
 			if (!se.ip.contains("."))
@@ -82,78 +82,78 @@ public class Pmmp_Jp_Net implements ServerListSite {
 		return sb.toString();
 	}
 
-	public class PMMP_Servers_List {
+	public static class PMMP_Servers_List {
 		@SerializedName("status")
 		public int status;
 		@SerializedName("userID")
 		public String userID;
 		@SerializedName("servers")
 		public ServerEntry[] servers;
+	}
 
-		public class ServerEntry {
-			@SerializedName("ver")
-			public int ver;
-			@SerializedName("notify")
-			public int notify;
-			@SerializedName("no")
-			public int no;
-			@SerializedName("status")
-			public int status;
-			@SerializedName("playerMax")
-			public int playerMax;
-			@SerializedName("playerNow")
-			public int playerNow;
-			@SerializedName("_order")
-			public long _order;
-			@SerializedName("name")
-			public String name;
-			@SerializedName("description")
-			public String description;
-			@SerializedName("ip")
-			public String ip;
-			@SerializedName("port")
-			public String port;
-			@SerializedName("icon")
-			public String icon;
-			@SerializedName("topImg")
-			public String topImg;
-			@SerializedName("owner")
-			public String owner;
-			@SerializedName("sites")
-			public SitesEntry[] sites;
-			@SerializedName("categories")
-			public CategoriesEntry[] categories;
+	public static class ServerEntry {
+		@SerializedName("ver")
+		public int ver;
+		@SerializedName("notify")
+		public int notify;
+		@SerializedName("no")
+		public int no;
+		@SerializedName("status")
+		public int status;
+		@SerializedName("playerMax")
+		public int playerMax;
+		@SerializedName("playerNow")
+		public int playerNow;
+		@SerializedName("_order")
+		public long _order;
+		@SerializedName("name")
+		public String name;
+		@SerializedName("description")
+		public String description;
+		@SerializedName("ip")
+		public String ip;
+		@SerializedName("port")
+		public String port;
+		@SerializedName("icon")
+		public String icon;
+		@SerializedName("topImg")
+		public String topImg;
+		@SerializedName("owner")
+		public String owner;
+		@SerializedName("sites")
+		public SitesEntry[] sites;
+		@SerializedName("categories")
+		public CategoriesEntry[] categories;
+	}
 
-			public class SitesEntry {
-				@SerializedName("title")
-				public String title;
-				@SerializedName("url")
-				public String url;
-				@SerializedName("icon")
-				public int icon;
-				@SerializedName("schemes")
-				public SchememesEntry[] schemes;
+	public static class SitesEntry {
+		@SerializedName("title")
+		public String title;
+		@SerializedName("url")
+		public String url;
+		@SerializedName("icon")
+		public int icon;
+		@SerializedName("schemes")
+		public SchememesEntry[] schemes;
+	}
 
-				public class SchememesEntry {
-					@SerializedName("title")
-					public String title;
-					@SerializedName("icon")
-					public String icon;
-					@SerializedName("scheme")
-					public String scheme;
-					@SerializedName("allowAndroid")
-					public boolean allowAndroid;
-				}
-			}
+	public static class SchememesEntry {
+		@SerializedName("title")
+		public String title;
+		@SerializedName("icon")
+		public String icon;
+		@SerializedName("scheme")
+		public String scheme;
+		@SerializedName("allowAndroid")
+		public boolean allowAndroid;
+	}
 
-			public class CategoriesEntry {
-				@SerializedName("color")
-				public int color;
-				@SerializedName("mark")
-				public int mark;
-				@SerializedName("text")
-				public String text;
-			}
-		}
+	public static class CategoriesEntry {
+		@SerializedName("color")
+		public int color;
+		@SerializedName("mark")
+		public int mark;
+		@SerializedName("text")
+		public String text;
 	}
 }
